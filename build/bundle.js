@@ -46,21 +46,19 @@
 
 	'use strict';
 
+	//strangerer things
 	var player = __webpack_require__(1);
 
 	var test = 'this';
 	console.log('testing ' + test, player);
-	player.init('this is not working').hello();
-
-	console.log(player);
+	player.init('webpack setup').hello();
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports) {
 
-	'use strict';
+	"use strict";
 
-	var hell = 'John.cat module';
 	var wow = void 0;
 	var player = {};
 
