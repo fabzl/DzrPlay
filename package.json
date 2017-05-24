@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "comp": "webpack",
+    "build": "webpack-dev-server"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,7 @@
   "homepage": "https://github.com/jfcali/DzrPlay#readme",
   "devDependencies": {
     "babel-core": "^6.3.17",
-    "babel-loader": "^6.2.0",
+    "babel-loader": "^6.4.1",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
@@ -31,7 +32,11 @@
     "rollup-plugin-npm": "^1.1.0",
     "superagent": "^1.5.0",
     "watchify": "^3.6.1",
-    "webpack": "^1.12.9",
+    "webpack": "^2.2",
     "webpack-dev-server": "^2.4.5"
+  },
+  "dependencies": {
+    "jquery-knob": "^1.2.11",
+    "svg.js": "^2.6.1"
   }
 }
