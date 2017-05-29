@@ -4,11 +4,38 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
+  <!-- Latest compiled and minified CSS -->
+  <link href="https://fonts.googleapis.com/css?family=Khula:300,400,600,700,800" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body id="mainBody">
+	<div id="dz-root"></div>
+	<div class="search-bar">
+		<input type="text" class="form-control" placeholder="Let's search for something...." aria-describedby="basic-addon1" data-search="artist">
+		<a class="btn btn-primary btn-sm" href="#" role="button" data-hit="artist">Search by artist</a>
+	</div>
 
-  
-  <script src="build/bundle.js"></script>
+	<div id="list" class="results-container">
+		<div v-for="item in items" class="results" >
+			<h1 @click="listSongs(item.id)">{{ item.name }}</h1>
+			<img v-bind:src=item.picture_big>
+			<a v-bind:href=item.link>Show in Deezer</a>
+			<p>{{item.nb_fan}} fans</p>
+		</div>
+	</div>	
+	<hr>
+	<div id="songs" class="results-container">
+		<div v-for="item in items" class="results" >
+			<h1>{{ item.title }}</h1>
+			<img v-bind:src=item.album.cover_big>
+			<a @click="play(item.id)">Play</a>
+			<p>Rank: {{item.rank}}</p>
+		</div>
+	</div>
+	<script src="https://unpkg.com/vue"></script>
+  	<script src="https://e-cdns-files.dzcdn.net/js/min/dz.js"></script>
+	<script src="build/bundle.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>

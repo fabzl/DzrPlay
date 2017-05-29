@@ -13,3 +13,6 @@ public/video
 
 # media
 public/media
+
+#secret key
+config.json

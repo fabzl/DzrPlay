@@ -1,12 +1,15 @@
 
-	require('svg.js');
+require('svg.js');
 
-console.log(SVG)
 
 let drawCanvas = SVG('mainBody').size(document.body.clientWidth, document.body.clientHeight)
-let rect = drawCanvas.rect(199,199).attr({fill: '#f06'})
 
 function ui() {
+	let axis;
+	let volume = {
+	};
+
+	let core;
 	let element;
 	let params = {};
 	let controls = {
@@ -19,7 +22,7 @@ function ui() {
 		canDrag: false
 	}
 	this.init = (p) => {
-		console.log('initalizing ', p)
+
 		params.container = p.container || null;
 		params.width = p.width || DEFAULT_WIDTH;
 		params.height = p.height || DEFAULT_WIDTH;
@@ -28,28 +31,42 @@ function ui() {
 		params.draggable = p.draggable || false;
 		params.name = p.name || '';
 		params.background = p.background || 'gray';
-		element = draw();
-		render(element);
-		return element;
-	}
-
-	this.hello = () => {
-		console.log(wow)
-		return ui;
+		draw();
+		render();
 	}
 
 	function draw() {
+		axis = drawCanvas.circle(params.width);
+		volume.center = drawCanvas.circle(params.width / 2);
+
+		axis.fill(params.background)
+			.move(params.x, params.y);
+
+		volume.center.fill(params.background)
+			.move(params.x + 50, params.y + 50)
+			.attr({
+				'fill-opacity': 0.3
+			});
+
+		volume.halo = drawCanvas.circle( Math.abs(axis.attr('x') - volume.center.attr('x') ) )
+		volume.halo.attr({
+				fill: '#000',
+				'fill-opacity': 0.1,
+				stroke: params.background,
+				'stroke-width': 10
+			})
+	}
+
+	/*function draw() {
 		let el = document.createElement('DIV');
 
 		//defaults
 		el.style.setProperty('border-radius','50%');
-		el.style.setProperty('position','absolute');
 
 		//from params
 		el.style.setProperty('width',`${params.width}px`);
 		el.style.setProperty('height',`${params.height}px`);
 		el.style.setProperty('background',params.background);
-	    el.style.setProperty('transform', `translate(${params.x}px, ${params.y}px)`);
 
 		if(params.container) {
 			params.container.append(child(el))
@@ -58,22 +75,20 @@ function ui() {
 		}
 
 		return el;
-	}
+	}*/
 
-	function render(e) {
+	function render() {
 		if(params.draggable) {
-			e.addEventListener('mousedown', () => {
+			axis.mousedown(() => {
 				mouseActions.canDrag = true;
 			});
 
 			window.addEventListener('mousemove', (ev) => {
 				if(mouseActions.canDrag) {
-					console.log('moving', params.name, params.height/2)
-	    			e.style.setProperty('transform', `translate(${ev.pageX-params.width/2}px, ${ev.pageY-(params.height/2)}px)`);
-	    			console.log(e)
+					axis.move(ev.pageX-params.width/2, ev.pageY-(params.height/2));
 				}
 			})
-			document.addEventListener('mouseup', () => {
+			axis.mouseup(() => {
 				mouseActions.canDrag = false;
 			});
 			/*e.addEventListener('mouseleave', () => {
