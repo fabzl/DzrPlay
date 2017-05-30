@@ -29,9 +29,9 @@ const onLoad = () => {
 	  methods: {
 	  	listSongs: function(artist) {
 	  		songs.items = [];
+			songs.searchMessage = 'Searching...'
 			player.searchTopSongs(artist, (res)=> {
 				console.log(res)
-				songs.searchMessage = 'Searching...'
 				if(res.length) {
 					songs.searchMessage = 'Try searching for something'
 					songs.items = res;
