@@ -7,10 +7,18 @@ body {
 	font-family: 'Khula', sans-serif;
 }
 
+.container {
+	max-width: 700px;
+	margin: 0 auto;
+}
+
 .search-bar {
 	display: flex;
 	margin-top: 20px;
 	margin-bottom: 20px;
+	align-items: center;
+
+    box-sizing: border-box;
 }
 
 input {
@@ -19,21 +27,35 @@ input {
 	border: 3px solid #333;
 	padding: 5px;
 	height: 20px;
-	border-radius: 5px;
 	outline: none;
 	flex-grow: 2;
 
 }
 .search-bar a {
     align-self: center;
-    padding-left: 20px;
-    padding-right: 20px;
+    margin-left: 20px;
+    color: white;
+    margin-right: 20px;
+    text-decoration: none;
+    padding: 6px;
+    height: 20px;
+    background: #333;
+    font-size: 12px;
+    border: 3px solid #333;
+}
+
+.search-bar a:hover {
+	background: white;
+	border: 3px solid #333;
+	color: #333;
 }
 
 
 .results-container {
 	display: flex;
-	flex-flow: row wrap
+	flex-flow: row wrap;
+	padding-left: 20px;
+	padding-right: 20px;
 
 }
 
@@ -42,7 +64,6 @@ input {
 	position: relative;
 	min-width: 0;
 	width: 25%;
-	padding: 10px;
 	overflow: hidden;
 	text-align: center;
 }
@@ -63,10 +84,13 @@ input {
 }
 
 .results p {
-	background-color: rgba(0,0,0,0.5);
+	background-color: black;
 	color: white;
 	mix-blend-mode: darken;
 	align-self: center;
+    margin-bottom: 0px;
+    margin-top: 2px;
+    padding-top: 4px;
 }
 
 .results img {

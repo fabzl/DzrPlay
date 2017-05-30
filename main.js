@@ -23,13 +23,21 @@ const onLoad = () => {
 	  el: '#list',
 	  data: {
 	    items: [
-	    ]
+	    ],
+	    searchMessage: 'Try searching for something'
 	  },
 	  methods: {
 	  	listSongs: function(artist) {
+	  		songs.items = [];
 			player.searchTopSongs(artist, (res)=> {
 				console.log(res)
-				songs.items = res;
+				songs.searchMessage = 'Searching...'
+				if(res.length) {
+					songs.searchMessage = 'Try searching for something'
+					songs.items = res;
+				} else {
+					songs.searchMessage = 'Your query didnt have any hits! no top hits for this artist....';
+				}
 			});
 	  	}
 	  }
@@ -39,7 +47,9 @@ const onLoad = () => {
 	  el: '#songs',
 	  data: {
 	    items: [
-	    ]
+	    ],
+	    searchMessage: 'Top hits will appear here',
+	    hasArtist: false
 	  },
 	  methods: {
 	  	play: function(songId) {
@@ -51,9 +61,19 @@ const onLoad = () => {
 	});
 }
 const onSearch = () => {
+	playlist.searchMessage = 'Searching...';
+	playlist.items = [];
+
+	songs.items = [];
+	songs.hasArtist = false;
 	player.search($SEARCH_BAR.value, (res)=> {
 		console.log(res)
-		playlist.items = res;
+		if(res.length) {
+			playlist.items = res;
+			songs.hasArtist = true;
+		} else {
+			playlist.searchMessage = 'Your query didnt have any hits! try searching for something else';
+		}
 	});
 }
 $HIT.addEventListener('click', () => onSearch());

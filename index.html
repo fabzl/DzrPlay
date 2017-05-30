@@ -10,26 +10,33 @@
 </head>
 <body id="mainBody">
 	<div id="dz-root"></div>
-	<div class="search-bar">
-		<input type="text" class="form-control" placeholder="Let's search for something...." aria-describedby="basic-addon1" data-search="artist">
-		<a class="btn btn-primary btn-sm" href="#" role="button" data-hit="artist">Search by artist</a>
-	</div>
-
-	<div id="list" class="results-container">
-		<div v-for="item in items" class="results" >
-			<h1 @click="listSongs(item.id)">{{ item.name }}</h1>
-			<img v-bind:src=item.picture_big>
-			<a v-bind:href=item.link>Show in Deezer</a>
-			<p>{{item.nb_fan}} fans</p>
+	<div class="container">
+		<div class="search-bar">
+			<input type="text" class="form-control" placeholder="Artist name...." aria-describedby="basic-addon1" data-search="artist">
+			<a class="btn btn-primary btn-sm" href="#" role="button" data-hit="artist">Search by artist</a>
 		</div>
-	</div>	
-	<hr>
-	<div id="songs" class="results-container">
-		<div v-for="item in items" class="results" >
-			<h1>{{ item.title }}</h1>
-			<img v-bind:src=item.album.cover_big>
-			<a @click="play(item.id)">Play</a>
-			<p>Rank: {{item.rank}}</p>
+
+		<div id="list" class="results-container">
+			<p style="width: 100%" v-if="items.length > 0">Click the name of the artist to display top hits!</p>
+			
+			<div v-if="items.length > 0" v-for="item in items" class="results" >
+				<h1 @click="listSongs(item.id)">{{ item.name }}</h1>
+				<img v-bind:src=item.picture_big>
+				<a v-bind:href=item.link>Show in Deezer</a>
+				<p>{{item.nb_fan}} fans</p>
+			</div>
+			<div v-if="items.length < 1">{{searchMessage}}</div>
+
+		</div>	
+		<hr>
+		<div id="songs" class="results-container">
+			<div v-if="items.length > 0" v-for="item in items" class="results" >
+				<h1>{{ item.title }}</h1>
+				<img v-bind:src=item.album.cover_big>
+				<a @click="play(item.id)">Play</a>
+				<p>Rank: {{item.rank}}</p>
+			</div>
+			<div v-if="items.length < 1 && hasArtist">{{searchMessage}}</div>
 		</div>
 	</div>
 	<script src="https://unpkg.com/vue"></script>
